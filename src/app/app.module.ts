@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 
@@ -23,6 +24,7 @@ import { RegisterComponent } from './components/register/register.component';
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

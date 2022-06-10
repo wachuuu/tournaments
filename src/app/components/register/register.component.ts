@@ -45,10 +45,10 @@ export class RegisterComponent {
         this.snackBar.open(message, "OK")
       })
       const name = `${this.registerForm.value.firstName} ${this.registerForm.value.lastName}`
-      this.auth.updateName(res, name)?.catch(err => {
-        this.snackBar.open('There was some error with updating your Name. Try again later', "OK", {
+      this.auth.updateName(res, name)?.catch(_ => {
+        this.snackBar.open('There was some error with updating your Name. Try again later.', "OK", {
           panelClass: ['snack-err']
-        })      
+        });
       })
       this.auth.signIn(this.registerForm.value.email, this.registerForm.value.password).then(_ => {
         this.router.navigate(['']);

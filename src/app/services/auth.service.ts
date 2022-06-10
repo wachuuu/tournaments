@@ -35,4 +35,8 @@ export class AuthService {
   sendEmailVerification(credential: firebase.auth.UserCredential) {
     return credential.user?.sendEmailVerification();
   }
+
+  sendPasswordResetEmail(email: string) {
+    return this.angularFireAuth.sendPasswordResetEmail(email);
+  }
 }
