@@ -16,32 +16,23 @@ export class AuthService {
     this.user$ = angularFireAuth.authState;
   }
 
-  checkUser() {
-    this.angularFireAuth.currentUser.then(data => {
-      console.log(data);
-    })
-  }
-
   signUp(email: string, password: string) {
-    this.angularFireAuth.createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      this.signIn(email, password)
-    })
-    .catch(err => {
-      console.log('error', err.message);
-    })
+    return this.angularFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
   signIn(email: string, password: string) {
-    this.angularFireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      this.router.navigate(['']);
-    })
-    .catch(err => {
-      console.log('error', err.message);
-    })
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password);
   }
 
   signOut() {
     this.angularFireAuth.signOut();
+  }
+
+  updateName(credential: firebase.auth.UserCredential, value: string) {
+    return credential.user?.updateProfile({ displayName: value });
+  }
+
+  sendEmailVerification(credential: firebase.auth.UserCredential) {
+    return credential.user?.sendEmailVerification();
   }
 }

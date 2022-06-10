@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -6,25 +8,34 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private readonly auth: AuthService) { }
+  constructor(
+    private readonly auth: AuthService, 
+    private fb: FormBuilder,
+    private router: Router) { }
 
-  ngOnInit(): void {
-  }
+  error: string | null = null
 
-  email = 'gab.wachowski15@gmail.com'
-  pass = 'pass123';
+  loginForm = this.fb.group({
+    email: ['', [
+      Validators.email,
+      Validators.required
+    ]],
+    password: ['', Validators.required],
+  })
 
-  signUp() {
-    this.auth.signUp(this.email, this.pass);
-  }
+  get email() { return this.loginForm.get('email') }
+  get password() { return this.loginForm.get('password') }
 
   signIn() {
-    this.auth.signIn(this.email, this.pass);
-  }
-
-  signOut() {
-    this.auth.signOut();
+    this.auth.signIn(this.loginForm.value.email, this.loginForm.value.password)
+    .then(res => {
+      this.router.navigate(['']);
+    })
+    .catch(err => {
+      this.error = err.message;
+      this.loginForm.reset();
+    })
   }
 }

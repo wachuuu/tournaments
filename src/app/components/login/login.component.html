@@ -1,3 +1,41 @@
-<button (click)="signUp()">signup</button>
-<button (click)="signIn()">signin</button>
-<button (click)="signOut()">signout</button>
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-subtitle>
+    You can also
+    <a routerLink="/register"> register</a>.
+  </mat-card-subtitle>
+
+  <form [formGroup]="loginForm" (ngSubmit)="signIn()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput id="email" type="text" formControlName="email">
+
+      <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <div *ngIf="email?.errors?.['required']">
+          Email is required.
+        </div>
+        <div *ngIf="email?.errors?.['email']">
+          Provided email is invalid
+        </div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label for="password">Password</mat-label>
+      <input matInput id="password" type="text" formControlName="password">
+
+      <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <div *ngIf="password?.errors?.['required']">
+          Password is required.
+        </div>
+      </mat-error>
+    </mat-form-field>
+    <a routerLink="/register">forgot password?</a>
+
+    <mat-error *ngIf="error" class="error">
+      {{ error }}
+    </mat-error>
+
+    <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">Log in</button>
+  </form>
+</mat-card>
