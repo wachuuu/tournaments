@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  userName: string | null = null;
+  
+  constructor(private readonly userService: UserService) {
+    this.userService.user$.subscribe(data => {
+      this.userName = data?.displayName ?? null;
+    })
   }
-
 }

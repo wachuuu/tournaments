@@ -1,0 +1,10 @@
+@import "src/variables";
+:host {
+  .container {
+    padding: 2rem 3rem;
+
+    .name {
+      color: $accent;
+    }
+  }
+}
