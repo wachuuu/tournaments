@@ -16,6 +16,10 @@ export class AuthService {
     this.user$ = angularFireAuth.authState;
   }
 
+  getCurrenUser() {
+    return this.angularFireAuth.currentUser;
+  }
+
   signUp(email: string, password: string) {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password);
   }

@@ -1,0 +1,21 @@
+:host {
+  mat-toolbar {
+    display: flex;
+    align-items: center;
+
+    a, a:active, a:visited, a:link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+    }
+
+    .title {
+      margin-left: 1rem;
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}
