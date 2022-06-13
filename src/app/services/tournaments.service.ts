@@ -18,6 +18,7 @@ export class TournamentsService {
 
   constructor(private db: AngularFirestore, private snackBar: MatSnackBar) {
     this.tournamentsCol = this.db.collection("tournaments");
+    this.getAllTournaments().subscribe()
   }
 
   async addNewTournament(data: Tournament) {

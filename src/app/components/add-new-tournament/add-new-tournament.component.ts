@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Ladder } from 'src/app/models/ladder.model';
 import { Player } from 'src/app/models/player.model';
@@ -22,6 +23,7 @@ export class AddNewTournamentComponent {
     private readonly router: Router,
     private readonly userService: UserService,
     private readonly tournamentsService: TournamentsService,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
   ) {
     const time = this.newTournamentForm.get('time')
@@ -42,6 +44,7 @@ export class AddNewTournamentComponent {
 
   newTournamentForm = this.fb.group({
     name: ['', Validators.required],
+    description: [''],
     discipline: ['', Validators.required],
     time: [new Date(), [Validators.required]],
     location: ['', Validators.required], // TODO: use google maps for localization
@@ -106,13 +109,15 @@ export class AddNewTournamentComponent {
 
   addNewTournament(tournament: Tournament) {
     this.tournamentsService.addNewTournament(tournament)
-    .then(res => {
-      console.log(res);
+    .then(_ => {
+      this.snackBar.open('Tournamnet created sucessfully', "OK");
+      this.router.navigate(['']);
     })
-    .catch(err => {
-      console.log(err);
+    .catch(_ => {
+      this.snackBar.open('There was some error adding new tournament. Try again later.', "OK", {
+        panelClass: ['snack-err']
+      });
     })
-    // this.router.navigate(['']);
   }
 }
 

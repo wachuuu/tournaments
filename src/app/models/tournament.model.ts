@@ -7,6 +7,7 @@ export interface Tournament {
   id?: string,
   path?: string
   name: string,
+  description: string,
   owner: User,
   discipline: string,
   time: Date,

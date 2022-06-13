@@ -1,0 +1,116 @@
+@import "src/variables";
+
+:host {
+  .container {
+    .search-wrapper {
+      background: #424242;
+      display: flex;
+      justify-content: space-between;
+
+      mat-form-field {
+        margin-left: 2rem;
+        margin-bottom: -5px;
+      }
+    }
+
+    .full-width-table {
+      width: 100%;
+
+      .table-row {
+        &:not(.example-expanded-row):hover {
+          background: #616161;
+        }
+        
+        & td {
+          border-bottom-width: 0;
+        }
+      }
+
+      .details-row {
+        height: 0;
+      }
+
+      .details-expanded {
+        overflow: hidden;
+        display: flex;
+
+        .details-content {
+          padding: 1rem;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          .icon-box {
+            display: flex;
+            align-items: center;
+            margin: 0.25rem 0;
+
+            mat-icon {
+              margin-right: 1rem;
+            }
+          }
+
+          .buttons {
+            margin-top: 2rem;
+            * {
+              margin-right: 1rem;
+            }
+          }
+
+          .left {
+            flex: 1;
+            padding-right: 2rem;
+
+            .edit-btn {
+              display: flex;
+              align-items: center;
+              margin-right: 1rem;
+
+              mat-icon {
+                width: 17px;
+                height: 17px;
+                font-size: 17px;
+              }
+            }
+          }
+
+          .right {
+            flex-basis: 500px;
+            max-height: 300px;
+            overflow: auto;
+            padding: 1rem;
+            border: 1px solid #616161;
+
+            .author {
+              margin-bottom: 1rem;
+            }
+
+            .person {
+              display: flex;
+              align-items: center;
+              margin: .25rem;
+
+              mat-icon {
+                padding: .5rem;
+                background: black;
+                margin-right: 1rem;
+                border-radius: 50%;
+              }
+
+              .rank {
+                color: $accent;
+                margin-right: 1rem;
+              }
+
+              .license {
+                margin-left: auto;
+                color: #616161;
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
