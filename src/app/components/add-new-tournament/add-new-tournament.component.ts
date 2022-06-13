@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Ladder } from 'src/app/models/ladder.model';
 import { Player } from 'src/app/models/player.model';
 import { Tournament } from 'src/app/models/tournament.model';
+import { TournamentsService } from 'src/app/services/tournaments.service';
 import { UserService } from 'src/app/services/user.service';
 import { AddNewDialogComponent } from './add-new-dialog/add-new-dialog.component';
 
@@ -18,13 +19,13 @@ export class AddNewTournamentComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly userService: UserService,
     private readonly router: Router,
+    private readonly userService: UserService,
+    private readonly tournamentsService: TournamentsService,
     public dialog: MatDialog,
   ) {
     const time = this.newTournamentForm.get('time')
-    this.newTournamentForm.get('applicationDeadline')?.addValidators(DateValidators.greaterThan(time))
-
+    this.newTournamentForm.get('applicationDeadline')?.addValidators(DateValidators.lesserThan(time))
 
     this.newTournamentForm.get('addPlayerForm.addMe')?.valueChanges.subscribe(val => {
       if (val) {
@@ -104,22 +105,27 @@ export class AddNewTournamentComponent {
   }
 
   addNewTournament(tournament: Tournament) {
-    console.log(tournament);
-    // TODO: add interaction with API
-    this.router.navigate(['']);
+    this.tournamentsService.addNewTournament(tournament)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    // this.router.navigate(['']);
   }
 }
 
 export class DateValidators {
-  static greaterThan(startControl: AbstractControl | null): ValidatorFn {
+  static lesserThan(startControl: AbstractControl | null): ValidatorFn {
     return (endControl: AbstractControl): ValidationErrors | null => {
       const startDate: Date = startControl?.value;
       const endDate: Date = endControl.value;
       if (!startDate || !endDate) {
         return null;
       }
-      if (startDate > endDate) {
-        return { greaterThan: true };
+      if (startDate < endDate) {
+        return { lesserThan: true };
       }
       return null;
     };

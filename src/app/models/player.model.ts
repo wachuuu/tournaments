@@ -1,7 +1,7 @@
-import firebase from 'firebase/compat/app';
+import { User } from './user.model';
 
 export interface Player {
-  user: firebase.User,
+  user: User,
   licensePlate: string,
   ranking: number,
 };

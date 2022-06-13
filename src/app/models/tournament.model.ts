@@ -1,13 +1,14 @@
-import firebase from 'firebase/compat/app'
-import { Discipline } from './discipline.enum'
 import { Ladder } from './ladder.model'
 import { Player } from './player.model'
 import { Sponsor } from './sponsor.model'
+import { User } from './user.model'
 
 export interface Tournament {
+  id?: string,
+  path?: string
   name: string,
-  owner: firebase.User | null,
-  discipline: Discipline,
+  owner: User,
+  discipline: string,
   time: Date,
   location: string,
   maxParticipants: number,
