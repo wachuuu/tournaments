@@ -1,0 +1,10 @@
+<h2>Remove tournament</h2>
+<mat-dialog-content>
+  Do you really want to remove tournament <strong>{{ data.name }}</strong>?
+  <br>
+  This operation cannot be undone
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="warn" (click)="removeTournament()" [mat-dialog-close]="true">Remove</button>
+</mat-dialog-actions>

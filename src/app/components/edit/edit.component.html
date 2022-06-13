@@ -1,0 +1,67 @@
+<h2>Edit tournament</h2>
+<mat-dialog-content>
+
+  <form [formGroup]="tournamentForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Tournament name</mat-label>
+      <input matInput type="text" formControlName="name">
+      <mat-error>
+        Name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="6" placeholder="Short description of the tournament.." formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Discipline</mat-label>
+      <input matInput type="text" formControlName="discipline">
+      <mat-error>
+        Discipline is required.
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <mat-form-field>
+        <mat-label>Time</mat-label>
+        <input matInput type="datetime-local" formControlName="time"
+        value="{{ tournamentForm.value.time | date:'yyyy-MM-ddThh:mm' }}">
+        <mat-error>
+          Please provide tournament date and time.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Location</mat-label>
+        <input matInput type="text" formControlName="location">
+        <mat-error>
+          Location is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Maxiumum participants</mat-label>
+      <input matInput type="number" formControlName="maxParticipants">
+      <mat-error>
+        Tournament should consist of at least two participants.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Application deadline</mat-label>
+      <input matInput type="datetime-local" formControlName="applicationDeadline" 
+      value="{{ tournamentForm.value.applicationDeadline | date:'yyyy-MM-ddThh:mm' }}">
+      <mat-error>
+        Application deadline is missing or invalid.
+      </mat-error>
+    </mat-form-field>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

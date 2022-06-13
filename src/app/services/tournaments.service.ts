@@ -40,6 +40,49 @@ export class TournamentsService {
       })
   }
 
+  async editTournament(id: string, body: Object) {
+    return this.tournamentsCol.doc(id).update(body)
+      .then(res => {
+        let index = this.tournaments.findIndex(it => it.id === id)
+        if (index > -1) {
+          let updated = { ...this.tournaments[index], ...body };
+          let newTournaments = [...this.tournaments];
+          newTournaments[index] = updated;
+          this.tournaments = newTournaments;
+          this.snackBar.open('Tournament has been updated', "OK");
+        } else {
+          this.snackBar.open('Could not find tournament id', "OK", {
+            panelClass: ['snack-err']
+          });
+        }
+        return res;
+      })
+      .catch(e => {
+        this.snackBar.open('Tournament update failed. Try again later', "OK", {
+          panelClass: ['snack-err']
+        });
+        return e;
+      })
+  }
+
+  async removeTournament(id: string) {
+    return this.tournamentsCol.doc(id).delete()
+      .then(res => {
+        let index = this.tournaments.findIndex(it => it.id === id)
+        let newTournaments = [...this.tournaments];
+        newTournaments.splice(index, 1);
+        this.tournaments = newTournaments;
+        this.snackBar.open('Tournament has been removed', "OK");
+        return res;
+      })
+      .catch(e => {
+        this.snackBar.open('Tournament deletion failed. Try again later', "OK", {
+          panelClass: ['snack-err']
+        });
+        return e;
+      })
+  }
+
   getAllTournaments(): Observable<Tournament[]> {
     return this.tournamentsCol.get()
       .pipe(

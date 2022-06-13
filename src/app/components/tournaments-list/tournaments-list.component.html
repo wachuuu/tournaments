@@ -52,9 +52,14 @@
             <div class="left">
               <div style="display: flex; align-items: baseline;">
                 <button *ngIf="isOwner(row.owner.uid)" class="edit-btn" mat-raised-button
-                  (click)="editTournament(row.id)" [disabled]="timePassed(row.time)">
+                  (click)="editTournament(row)" [disabled]="timePassed(row.time)">
                   <mat-icon>edit</mat-icon>
                   Edit
+                </button>
+                <button *ngIf="isOwner(row.owner.uid)" class="edit-btn" mat-raised-button
+                  (click)="removeTournament(row)">
+                  <mat-icon>delete</mat-icon>
+                  Remove
                 </button>
                 <h3>{{ row.name }}</h3>
                 <div style="color: gray; margin-left: .5rem;"> {{ row.discipline }}</div>

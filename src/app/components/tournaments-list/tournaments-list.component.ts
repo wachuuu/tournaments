@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -7,6 +8,8 @@ import firebase from 'firebase/compat/app';
 import { Tournament } from 'src/app/models/tournament.model';
 import { TournamentsService } from 'src/app/services/tournaments.service';
 import { UserService } from 'src/app/services/user.service';
+import { EditComponent } from '../edit/edit.component';
+import { RemoveComponent } from '../remove/remove.component';
 
 @Component({
   selector: 'app-tournaments-list',
@@ -33,7 +36,8 @@ export class TournamentsListComponent implements OnInit, AfterViewInit {
   constructor(
     private readonly tournamentsService: TournamentsService,
     private readonly userService: UserService,    
-    private readonly router: Router,    
+    private readonly router: Router,
+    public dialog: MatDialog,
     ) {
     this.sort = new MatSort();
     this.dataSource = new MatTableDataSource();
@@ -100,9 +104,12 @@ export class TournamentsListComponent implements OnInit, AfterViewInit {
     // TODO: navigate to /tournaments/id
   }
 
-  editTournament(id: string) {
-    // TODO: edit tournament
-    
+  editTournament(data: Tournament) {
+    this.dialog.open(EditComponent, { data });
+  }
+
+  removeTournament(data: Tournament) {
+    this.dialog.open(RemoveComponent, { data });
   }
 
   isOwner(uid: string) {

@@ -21,10 +21,12 @@ import { AppComponent } from './app.component';
 import { AddNewDialogComponent } from './components/add-new-tournament/add-new-dialog/add-new-dialog.component';
 import { AddNewTournamentComponent } from './components/add-new-tournament/add-new-tournament.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { EditComponent } from './components/edit/edit.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
+import { RemoveComponent } from './components/remove/remove.component';
 import { TournamentsListComponent } from './components/tournaments-list/tournaments-list.component';
 
 @NgModule({
@@ -38,6 +40,8 @@ import { TournamentsListComponent } from './components/tournaments-list/tourname
     AddNewTournamentComponent,
     AddNewDialogComponent,
     TournamentsListComponent,
+    EditComponent,
+    RemoveComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
