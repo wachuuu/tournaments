@@ -14,6 +14,5 @@ export interface Tournament {
   participants: Player[],
   applicationDeadline: Date,
   sponsors: Sponsor[],
-  rankedPlayersNo: number,
   ladder: Ladder | null,
 };

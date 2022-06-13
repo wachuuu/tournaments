@@ -1,0 +1,34 @@
+<h2>Add new tournament</h2>
+<mat-dialog-content>
+  Are you sure you want to add this tournament?
+  <div class="details">
+    <div>
+      <span class="highlight">Name: </span> {{ data.name }}
+    </div>
+    <div>
+      <span class="highlight">Discipline: </span> {{ data.discipline }}
+    </div>
+    <div>
+      <span class="highlight">Time: </span> {{ data.time | date:'medium' }}
+    </div>
+    <div>
+      <span class="highlight">Location: </span> {{ data.location }}
+    </div>
+    <div>
+      <span class="highlight">Max. participants: </span> {{ data.maxParticipants }}
+    </div>
+    <div>
+      <span class="highlight">Application deadline: </span> {{ data.applicationDeadline | date:'medium' }}
+    </div>
+  </div>
+  <div *ngIf="data.participants.length > 0">
+    You will also participate in this tournament
+  </div>
+  <div *ngIf="data.participants.length === 0">
+    You will not participate in this tournament
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Add</button>
+</mat-dialog-actions>

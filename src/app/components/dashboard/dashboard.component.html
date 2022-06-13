@@ -2,13 +2,13 @@
   <div class="header" *ngIf="userName; then logged else login"></div>
   <ng-template #logged>
     <h2>Hello, <span class="name">{{ userName }}</span></h2>
-    <p>Choose tournaments you want to take part in or <a href="">create new</a>.</p>
+    <p>Choose tournaments you want to take part in or <a routerLink="/new">create new</a>.</p>
   </ng-template>
   <ng-template #login>
     <h2>Hello, stranger</h2>
     <p>To take part in a tournament you must <a routerLink="/login">Log in</a></p>
   </ng-template>
-  
+
   <div class="data-table">
 
   </div>

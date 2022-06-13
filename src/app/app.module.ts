@@ -4,6 +4,8 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AddNewDialogComponent } from './components/add-new-tournament/add-new-dialog/add-new-dialog.component';
+import { AddNewTournamentComponent } from './components/add-new-tournament/add-new-tournament.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
@@ -29,6 +33,8 @@ import { RegisterComponent } from './components/register/register.component';
     RegisterComponent,
     ForgotPasswordComponent,
     NavbarComponent,
+    AddNewTournamentComponent,
+    AddNewDialogComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -44,6 +50,8 @@ import { RegisterComponent } from './components/register/register.component';
     MatSnackBarModule,
     MatToolbarModule,
     MatIconModule,
+    MatDialogModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

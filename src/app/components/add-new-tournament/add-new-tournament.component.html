@@ -1,0 +1,89 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title>Add new tournament</mat-card-title>
+    <mat-card-subtitle>
+      <a routerLink="/">Back to dashboard</a>
+    </mat-card-subtitle>
+
+    <form [formGroup]="newTournamentForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field>
+        <mat-label>Tournament name</mat-label>
+        <input matInput type="text" formControlName="name">
+        <mat-error>
+          Name is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Discipline</mat-label>
+        <input matInput type="text" formControlName="discipline">
+        <mat-error>
+          Discipline is required.
+        </mat-error>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Time</mat-label>
+          <input matInput type="datetime-local" formControlName="time">
+          <mat-error>
+            Please provide tournament date and time.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Location</mat-label>
+          <input matInput type="text" formControlName="location">
+          <mat-error>
+            Location is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Maxiumum participants</mat-label>
+        <input matInput type="number" formControlName="maxParticipants">
+        <mat-error>
+          Tournament should consist of at least two participants.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Application deadline</mat-label>
+        <input matInput type="datetime-local" formControlName="applicationDeadline">
+        <mat-error>
+          Application deadline is missing or invalid.
+        </mat-error>
+      </mat-form-field>
+
+      <div formGroupName="addPlayerForm">
+        <mat-checkbox formControlName="addMe">
+          I want to participate
+        </mat-checkbox>
+
+        <div *ngIf="newTournamentForm.get('addPlayerForm.addMe')?.value">
+          <mat-form-field>
+            <mat-label>License plate</mat-label>
+            <input matInput type="text" formControlName="licensePlate">
+            <mat-error>
+              License plate is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Your ranking</mat-label>
+            <input matInput type="number" min="1" formControlName="ranking">
+            <mat-error>
+              Provide valid ranking, minimal value is 1.
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <button mat-raised-button type="submit" color="primary" [disabled]="newTournamentForm.invalid">
+        Add new tournament
+      </button>
+    </form>
+  </mat-card>
+</div>
