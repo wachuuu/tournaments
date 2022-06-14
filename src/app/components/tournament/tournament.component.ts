@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Tournament } from 'src/app/models/tournament.model';
 import { TournamentsService } from 'src/app/services/tournaments.service';
 import { UserService } from 'src/app/services/user.service';
@@ -19,8 +19,11 @@ import { SignMeUpComponent } from '../sign-me-up/sign-me-up.component';
 export class TournamentComponent {
 
   id: string | null = null;
-  tournament$: Observable<Tournament | null>;
-  private tournament: Tournament | null = null;
+  
+  private _tournament$ = new BehaviorSubject<Tournament | null>(null);
+  tournament$: Observable<Tournament | null> = this._tournament$.asObservable();
+  private get tournament() { return this._tournament$.getValue() }
+  private set tournament(value) { this._tournament$.next(value) }
   user: firebase.User | null = null;
 
   constructor(
@@ -30,13 +33,21 @@ export class TournamentComponent {
     private readonly userService: UserService,
     private readonly dialog: MatDialog,
   ) {
-    // TODO: tournament is not refreshing properly (ex. after edit)
-    this.tournament$ = new Observable<Tournament | null>();
     this.activatedRoute.params.subscribe(data => {
       this.id = data['id'];
       if (this.id) {
-        this.tournament$ = this.tournamentsService.getTournamentById(this.id)
-          .pipe(tap(data => this.tournament = data))
+        this.tournamentsService.getTournamentById(this.id).subscribe(data => {
+          this.tournament = data;
+        })
+      }
+    })
+
+    this.tournamentsService.tournaments$.subscribe(data => {
+      if (this.tournament?.id) {
+        let item = data.find(it => it.id === this.tournament?.id)
+        if (item) {
+          this.tournament = item;
+        }
       }
     })
 
