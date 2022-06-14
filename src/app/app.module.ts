@@ -28,6 +28,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { RemoveComponent } from './components/remove/remove.component';
 import { TournamentsListComponent } from './components/tournaments-list/tournaments-list.component';
+import { SignMeUpComponent } from './components/sign-me-up/sign-me-up.component';
+import { SignMeOutComponent } from './components/sign-me-out/sign-me-out.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { TournamentsListComponent } from './components/tournaments-list/tourname
     TournamentsListComponent,
     EditComponent,
     RemoveComponent,
+    SignMeUpComponent,
+    SignMeOutComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

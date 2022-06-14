@@ -10,6 +10,8 @@ import { TournamentsService } from 'src/app/services/tournaments.service';
 import { UserService } from 'src/app/services/user.service';
 import { EditComponent } from '../edit/edit.component';
 import { RemoveComponent } from '../remove/remove.component';
+import { SignMeOutComponent } from '../sign-me-out/sign-me-out.component';
+import { SignMeUpComponent } from '../sign-me-up/sign-me-up.component';
 
 @Component({
   selector: 'app-tournaments-list',
@@ -84,17 +86,17 @@ export class TournamentsListComponent implements OnInit, AfterViewInit {
     this.expandedElement = this.expandedElement === item ? null : item;
   }
 
-  signMeUp(id: string) {
+  signMeUp(data: Tournament) {
     if (this.user) {
-      // TODO: interaction with API
+      this.dialog.open(SignMeUpComponent, { data });
     } else {
       this.router.navigate(['/login']);
     }
   }
   
-  signMeOut(id: string) {
+  signMeOut(data: Tournament) {
     if (this.user) {
-      // TODO: interaction with API
+      this.dialog.open(SignMeOutComponent, { data });
     } else {
       this.router.navigate(['/login']);
     }

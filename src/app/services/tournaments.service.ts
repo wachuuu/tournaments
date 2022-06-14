@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { Player } from '../models/player.model';
 import { Tournament } from '../models/tournament.model';
 
 @Injectable({
@@ -97,5 +98,30 @@ export class TournamentsService {
         }),
         tap(data => this.tournaments = data)
       )
+  }
+
+  signUpToATournament(id: string, player: Player) {
+    let tournament = this.tournaments.find(it => it.id === id);
+    if (!tournament) {
+      throw new Error('Tournament not found');
+    }
+    let participants = tournament.participants;
+    participants = [...participants, player];
+    let body = { participants: participants }
+
+    this.editTournament(id, body);
+  }
+
+  signOutFromATournament(id: string, uid: string) {
+    let tournament = this.tournaments.find(it => it.id === id);
+    if (!tournament) {
+      throw new Error('Tournament not found');
+    }
+    let participants = tournament.participants;
+    let index = participants.findIndex(it => it.user.uid === uid);
+    participants.splice(index, 1);
+    let body = { participants: participants }
+
+    this.editTournament(id, body);
   }
 }

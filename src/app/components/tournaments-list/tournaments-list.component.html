@@ -83,11 +83,11 @@
                   Visit tournament page
                 </button>
 
-                <button *ngIf="!isParticipating(row.id)" mat-raised-button color="primary" (click)="signMeUp(row.id)"
+                <button *ngIf="!isParticipating(row.id)" mat-raised-button color="primary" (click)="signMeUp(row)"
                   [disabled]="timePassed(row.applicationDeadline)">
                   Sign me up
                 </button>
-                <button *ngIf="isParticipating(row.id)" mat-raised-button color="primary" (click)="signMeOut(row.id)"
+                <button *ngIf="isParticipating(row.id)" mat-raised-button color="primary" (click)="signMeOut(row)"
                   [disabled]="timePassed(row.applicationDeadline)">
                   Sign me out
                 </button>

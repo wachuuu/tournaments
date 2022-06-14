@@ -12,7 +12,8 @@
 
     <mat-form-field style="width: 100%;">
       <mat-label>Description</mat-label>
-      <textarea matInput rows="6" placeholder="Short description of the tournament.." formControlName="description"></textarea>
+      <textarea matInput rows="6" placeholder="Short description of the tournament.."
+        formControlName="description"></textarea>
     </mat-form-field>
 
     <mat-form-field>
@@ -27,7 +28,7 @@
       <mat-form-field>
         <mat-label>Time</mat-label>
         <input matInput type="datetime-local" formControlName="time"
-        value="{{ tournamentForm.value.time | date:'yyyy-MM-ddThh:mm' }}">
+          value="{{ tournamentForm.value.time | date:'yyyy-MM-ddThh:mm' }}">
         <mat-error>
           Please provide tournament date and time.
         </mat-error>
@@ -52,8 +53,8 @@
 
     <mat-form-field>
       <mat-label>Application deadline</mat-label>
-      <input matInput type="datetime-local" formControlName="applicationDeadline" 
-      value="{{ tournamentForm.value.applicationDeadline | date:'yyyy-MM-ddThh:mm' }}">
+      <input matInput type="datetime-local" formControlName="applicationDeadline"
+        value="{{ tournamentForm.value.applicationDeadline | date:'yyyy-MM-ddThh:mm' }}">
       <mat-error>
         Application deadline is missing or invalid.
       </mat-error>
@@ -63,5 +64,8 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button [mat-dialog-close]="false">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onSubmit()" [mat-dialog-close]="true" cdkFocusInitial>Save</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [mat-dialog-close]="true" cdkFocusInitial
+    [disabled]="tournamentForm.invalid">
+    Save
+  </button>
 </mat-dialog-actions>

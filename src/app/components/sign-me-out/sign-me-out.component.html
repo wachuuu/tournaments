@@ -1,0 +1,12 @@
+<h2>Sign out from a tournament</h2>
+<mat-dialog-content>
+  Do you really want to sign out from a tournament <br>
+  <strong>{{ data.name }}?</strong>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>Cancel</button>
+  <button mat-raised-button color="primary" (click)="signOut()" [mat-dialog-close]="true">
+    Sign out
+  </button>
+</mat-dialog-actions>

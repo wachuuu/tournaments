@@ -1,0 +1,31 @@
+<h2>Sign up to a tournament</h2>
+<p>{{ data.name }}</p>
+In order to sign up to a tournament you have to provide <br> your current ranking and valid license plate.
+
+<mat-dialog-content>
+  <form [formGroup]="signUpForm">
+    <mat-form-field>
+      <mat-label>License plate</mat-label>
+      <input matInput type="text" formControlName="licensePlate">
+      <mat-error>
+        License plate is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Your ranking</mat-label>
+      <input matInput type="number" min="1" formControlName="ranking">
+      <mat-error>
+        Provide valid ranking, minimal value is 1.
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [mat-dialog-close]="true"
+    [disabled]="signUpForm.invalid">
+    Sign up
+  </button>
+</mat-dialog-actions>
