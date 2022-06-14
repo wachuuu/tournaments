@@ -1,5 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,7 +25,7 @@ import { SignMeUpComponent } from '../sign-me-up/sign-me-up.component';
     ]),
   ],
 })
-export class TournamentsListComponent implements OnInit, AfterViewInit {
+export class TournamentsListComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   dataSource: MatTableDataSource<Tournament>;
@@ -66,9 +66,6 @@ export class TournamentsListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngOnInit(): void {
-  }
-
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
@@ -103,7 +100,7 @@ export class TournamentsListComponent implements OnInit, AfterViewInit {
   }
 
   goToTournament(id: string) {
-    // TODO: navigate to /tournaments/id
+    this.router.navigate(['/tournament', { id }]);
   }
 
   editTournament(data: Tournament) {

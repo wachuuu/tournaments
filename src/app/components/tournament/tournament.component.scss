@@ -1,0 +1,146 @@
+@import "src/variables";
+
+:host {
+  .info-container {
+    display: flex;
+    padding: 2rem 10rem;
+
+    .left-panel {
+      width: 100%;
+      box-sizing: border-box;
+      margin-right: 3rem;
+
+      .header {
+        display: flex;
+        align-items: baseline;
+
+        .discipline {
+          margin-left: 1rem;
+          color: gray;
+        }
+      }
+
+      .actions {
+        margin-bottom: 1rem;
+
+        button {
+          margin-right: 1rem;
+        }
+      }
+
+      .description {
+        margin: 2rem 0;
+      }
+
+      .info-box-container {
+        display: flex;
+        gap: 1rem;
+
+        .info-box {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 1rem;
+          width: fit-content;
+
+          border: 1px solid $gray;
+
+          mat-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 40px;
+          }
+
+          div {
+            text-align: center;
+          }
+        }
+      }
+
+      .ladder {
+        margin-top: 2rem;
+
+        h2 {
+          margin-top: 1rem;
+        }
+      }
+
+      .sponsors {
+        margin-top: 2rem;
+
+        h2 {
+          margin-top: 1rem;
+        }
+      }
+    }
+
+    .right-panel {
+      flex-basis: 40%;
+      padding-top: 80px;
+      margin-top: 31px;
+
+      .person {
+        display: flex;
+        align-items: center;
+        margin: .25rem;
+
+        .me {
+          font-style: italic;
+          margin-left: .5rem;
+          color: $gray;
+        }
+
+        mat-icon {
+          padding: .5rem;
+          background: black;
+          margin-right: 1rem;
+          border-radius: 50%;
+        }
+      }
+
+      .participants {
+        margin-top: 1rem;
+
+        .header-participants {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .rank {
+          color: $accent;
+          margin-right: 1rem;
+        }
+
+        .license {
+          margin-left: auto;
+          color: $gray;
+        }
+      }
+
+      .sign-btn {
+        position: absolute;
+        width: 93%;
+        top: 1rem;
+
+        button {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+      }
+    }
+  }
+
+  .loading {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    mat-spinner {
+      margin-top: 10rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

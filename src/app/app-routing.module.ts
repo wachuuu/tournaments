@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TournamentComponent } from './components/tournament/tournament.component';
 import { AuthGuard } from './guards/auth-guard.service';
 
 const routes: Routes = [
@@ -32,6 +33,14 @@ const routes: Routes = [
     component: AddNewTournamentComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'tournament',
+    component: TournamentComponent
+  },
+  {
+    path: 'tournament/:id',
+    component: TournamentComponent
   },
   {
     path: '**',

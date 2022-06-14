@@ -1,0 +1,118 @@
+<div class="info-container" *ngIf="tournament$ | async as tournament; else loading">
+  <div class="left-panel">
+    <div class="header">
+      <h1>{{ tournament.name }}</h1>
+      <span class="discipline">{{ tournament.discipline }}</span>
+    </div>
+
+    <div class="actions">
+      <button *ngIf="isOwner()" class="edit-btn" mat-raised-button (click)="editTournament()"
+        [disabled]="timePassed(tournament.time)">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+
+      <button *ngIf="isOwner()" class="edit-btn" mat-raised-button (click)="removeTournament()">
+        <mat-icon>delete</mat-icon>
+        Remove
+      </button>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="description">
+      <p>{{ tournament.description }}</p>
+    </div>
+
+    <div class="info-box-container">
+
+      <div class="info-box">
+        <mat-icon>date_range</mat-icon>
+        <h3>Date & time</h3>
+        <div>{{ tournament.time | date:'medium' }}</div>
+      </div>
+
+      <div class="info-box">
+        <mat-icon>access_time</mat-icon>
+        <h3>Application deadline</h3>
+        <div>Sign up until {{ tournament.applicationDeadline | date:'medium' }}</div>
+      </div>
+
+      <div class="info-box">
+        <mat-icon>place</mat-icon>
+        <h3>Location</h3>
+        <div>{{ tournament.location }}</div>
+      </div>
+
+      <div class="info-box">
+        <mat-icon>golf_course</mat-icon>
+        <h3>Discipline</h3>
+        <div>{{ tournament.discipline }}</div>
+      </div>
+    </div>
+
+    <div class="ladder">
+      <mat-divider></mat-divider>
+      <h2>Tournament ladder</h2>
+
+    </div>
+
+    <div class="sponsors">
+      <mat-divider></mat-divider>
+      <h2>Sponsors</h2>
+
+    </div>
+
+  </div>
+  <mat-card class="right-panel">
+    <div class="author">
+      <h3>Author</h3>
+      <div class="person">
+        <mat-icon>person</mat-icon>
+        {{ tournament.owner.name }}
+        <span class="me" *ngIf="isOwner()"> (Me)</span>
+      </div>
+    </div>
+    <div class="participants">
+      <div class="header-participants">
+        <h3>Participants</h3>
+        <div>{{ tournament.participants.length }} / {{ tournament.maxParticipants }}</div>
+      </div>
+
+      <div class="person" *ngFor="let participant of tournament.participants">
+        <span class="rank">{{ participant.ranking }}.</span>
+        <mat-icon>person</mat-icon>
+        {{ participant.user.name }}
+        <span class="me" *ngIf="isOwner(participant.user.uid)"> (Me)</span>
+        <span class="license">{{ participant.licensePlate }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="isParticipating() then signOut; else signUp"></div>
+    <ng-template #signUp>
+      <div class="sign-btn">
+        <button mat-raised-button color="primary" (click)="signMeUp()"
+          [disabled]="timePassed(tournament.applicationDeadline)">
+          Sign me up
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+    </ng-template>
+    <ng-template #signOut>
+      <div class="sign-btn">
+        <button mat-raised-button color="primary" (click)="signMeOut()"
+          [disabled]="timePassed(tournament.applicationDeadline)">
+          Sign me out
+        </button>
+        <mat-divider></mat-divider>
+      </div>
+    </ng-template>
+  </mat-card>
+
+</div>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+    Loading...
+  </div>
+</ng-template>

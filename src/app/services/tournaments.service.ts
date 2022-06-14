@@ -84,6 +84,22 @@ export class TournamentsService {
       })
   }
 
+  getTournamentById(id: string): Observable<Tournament | null> {
+    return this.tournamentsCol.doc(id).get()
+    .pipe(
+      map(doc => {
+        if (doc.data()) {
+          return {
+            id: doc.id,
+            path: doc.ref.path,
+            ...doc.data()
+          };
+        }
+        return null;
+      })
+    )
+  }
+
   getAllTournaments(): Observable<Tournament[]> {
     return this.tournamentsCol.get()
       .pipe(
