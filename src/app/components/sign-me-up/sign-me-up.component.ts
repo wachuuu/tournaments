@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Player } from 'src/app/models/player.model';
 import { Tournament } from 'src/app/models/tournament.model';
 import { TournamentsService } from 'src/app/services/tournaments.service';
@@ -18,6 +19,7 @@ export class SignMeUpComponent {
     private readonly fb: FormBuilder,
     private readonly tournamentsService: TournamentsService,
     private readonly userService: UserService,
+    private snackBar: MatSnackBar,
   ) { }
 
   signUpForm = this.fb.group({
@@ -34,6 +36,12 @@ export class SignMeUpComponent {
     if (!this.data.id) {
       throw new Error('Tournament ID is not provided');
     }
-    this.tournamentsService.signUpToATournament(this.data.id, player);
+    if (this.data.participants.length < this.data.maxParticipants) {
+      this.tournamentsService.signUpToATournament(this.data.id, player);
+    } else {
+      this.snackBar.open('Tournament reached maximum number of participants', "OK", {
+        panelClass: ['snack-err']
+      });
+    }
   }
 }

@@ -1,6 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -39,6 +40,7 @@ export class TournamentsListComponent implements AfterViewInit {
     private readonly tournamentsService: TournamentsService,
     private readonly userService: UserService,    
     private readonly router: Router,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     ) {
     this.sort = new MatSort();
@@ -84,10 +86,16 @@ export class TournamentsListComponent implements AfterViewInit {
   }
 
   signMeUp(data: Tournament) {
-    if (this.user) {
-      this.dialog.open(SignMeUpComponent, { data });
+    if (data.participants.length < data.maxParticipants) {
+      if (this.user) {
+        this.dialog.open(SignMeUpComponent, { data });
+      } else {
+        this.router.navigate(['/login']);
+      }
     } else {
-      this.router.navigate(['/login']);
+      this.snackBar.open('Tournament reached maximum number of participants', "OK", {
+        panelClass: ['snack-err']
+      });
     }
   }
   
