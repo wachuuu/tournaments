@@ -10,6 +10,6 @@ export interface Duel {
     player: Player,
     previousDuelId: number | null,
   }
-  winner: Player,
+  winner: Player | null,
   round: number,
 };

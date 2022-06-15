@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { Duel } from '../models/duel.model';
 import { Player } from '../models/player.model';
 import { Tournament } from '../models/tournament.model';
 
@@ -41,7 +42,7 @@ export class TournamentsService {
       })
   }
 
-  async editTournament(id: string, body: Object) {
+  async editTournament(id: string, body: Object, message: string = 'Tournament has been updated') {
     return this.tournamentsCol.doc(id).update(body)
       .then(res => {
         let index = this.tournaments.findIndex(it => it.id === id)
@@ -50,7 +51,7 @@ export class TournamentsService {
           let newTournaments = [...this.tournaments];
           newTournaments[index] = updated;
           this.tournaments = newTournaments;
-          this.snackBar.open('Tournament has been updated', "OK");
+          this.snackBar.open(message, "OK");
         } else {
           this.snackBar.open('Could not find tournament id', "OK", {
             panelClass: ['snack-err']
@@ -82,6 +83,49 @@ export class TournamentsService {
         });
         return e;
       })
+  }
+
+  generateLadder(data: Tournament) {
+    if (!data || !data.id) {
+      return Promise.reject({ mesage: 'Cannot generate Ladder. Tournament is incomplete.' });
+    }
+    let participants = [...data.participants];
+    if (participants.length % 2 !== 0) {
+      this.snackBar.open('Ladder generating failed. There must be an even number of participants.', "OK", {
+        panelClass: ['snack-err']
+      });
+      return Promise.reject({ mesage: 'Ladder generating failed. There must be an even number of participants.' });
+    }
+
+    participants = this.shuffle(participants);
+    let duels: Duel[] = []
+
+    let index = 0;
+    while (participants.length > 0) {
+      let [playerA, playerB] = participants.splice(0, 2);
+      let playerOne = {
+        player: playerA,
+        previousDuelId: null,
+      };
+      
+      let playerTwo = {
+        player: playerB,
+        previousDuelId: null,
+      };
+
+      let duel: Duel = {
+        id: index,
+        playerOne,
+        playerTwo,
+        round: 0,
+        winner: null,
+      }
+
+      duels = [...duels, duel];
+      index++;
+    }
+
+    return this.editTournament(data.id, { ladder: duels }, 'Ladder has been initialized');
   }
 
   getTournamentById(id: string): Observable<Tournament | null> {
@@ -125,7 +169,7 @@ export class TournamentsService {
     participants = [...participants, player];
     let body = { participants: participants }
 
-    this.editTournament(id, body);
+    this.editTournament(id, body, 'Signed up to a tournament');
   }
 
   signOutFromATournament(id: string, uid: string) {
@@ -138,6 +182,18 @@ export class TournamentsService {
     participants.splice(index, 1);
     let body = { participants: participants }
 
-    this.editTournament(id, body);
+    this.editTournament(id, body, 'Signed out from a tournament');
+  }
+
+  private shuffle(array: Array<any>) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;  
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
   }
 }

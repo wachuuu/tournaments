@@ -33,6 +33,7 @@ import { SignMeOutComponent } from './components/sign-me-out/sign-me-out.compone
 import { SignMeUpComponent } from './components/sign-me-up/sign-me-up.component';
 import { TournamentComponent } from './components/tournament/tournament.component';
 import { TournamentsListComponent } from './components/tournaments-list/tournaments-list.component';
+import { LadderComponent } from './components/ladder/ladder.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { TournamentsListComponent } from './components/tournaments-list/tourname
     SignMeUpComponent,
     SignMeOutComponent,
     TournamentComponent,
+    LadderComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

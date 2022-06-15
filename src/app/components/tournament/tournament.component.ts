@@ -82,6 +82,11 @@ export class TournamentComponent {
     this.dialog.open(RemoveComponent, { data: this.tournament });
   }
 
+  generateLadder() {
+    if (this.tournament)
+      this.tournamentsService.generateLadder(this.tournament);
+  }
+
   isParticipating() {
     let index = this.tournament?.participants.findIndex(it => it.user.uid === this.user?.uid)
     if (index !== undefined && index > -1) {

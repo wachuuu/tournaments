@@ -113,7 +113,7 @@
                   <span class="rank">{{ participant.ranking }}.</span>
                   <mat-icon>person</mat-icon>
                   {{ participant.user.name }}
-                  <span *ngIf="isOwner(row.owner.uid)"
+                  <span *ngIf="isOwner(participant.user.uid)"
                     style="font-style: italic; margin-left: .5rem; font-weight: 100;"> (Me)</span>
                   <span class="license">{{ participant.licensePlate }}</span>
                 </div>

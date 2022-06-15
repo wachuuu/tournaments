@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Ladder } from 'src/app/models/ladder.model';
+import { Duel } from 'src/app/models/duel.model';
 import { Player } from 'src/app/models/player.model';
 import { Tournament } from 'src/app/models/tournament.model';
 import { TournamentsService } from 'src/app/services/tournaments.service';
@@ -68,7 +68,7 @@ export class AddNewTournamentComponent {
 
   onSubmit() {
     let participants: Player[] = [];
-    let ladder: Ladder[] = [];
+    let ladder: Duel[] = [];
     let user = this.userService.user;
 
     if (!user) {

@@ -1,0 +1,74 @@
+<div *ngIf="ladderGenerated() then ladder; else placeholder"></div>
+<ng-template #ladder>
+
+  <div class="container">
+    <div class="round" *ngFor="let round of rounds" [class.editable]="canEdit(round)">
+      <h3>Round {{ round + 1 }}</h3>
+      <div class="duel" *ngFor="let duel of getDuelsFor(round)">
+
+        <mat-card (click)="chooseWinner(duel, duel.playerOne.player)" class="player"
+          [class.winner]="duel.playerOne.player.user.uid === duel.winner?.user?.uid">
+          <span class="rank">{{ duel.playerOne.player.ranking }}.</span>
+          <mat-icon>person</mat-icon>
+          <div>
+            <div>{{ duel.playerOne.player.user.name }}</div>
+            <div class="license">{{ duel.playerOne.player.licensePlate }}</div>
+          </div>
+        </mat-card>
+
+        <div class="line-h"></div>
+
+        <mat-card (click)="chooseWinner(duel, duel.playerTwo.player)" class="player"
+          [class.winner]="duel.playerTwo.player.user.uid === duel.winner?.user?.uid">
+          <span class="rank">{{ duel.playerTwo.player.ranking }}.</span>
+          <mat-icon>person</mat-icon>
+          <div>
+            <div>{{ duel.playerTwo.player.user.name }}</div>
+            <div class="license">{{ duel.playerTwo.player.licensePlate }}</div>
+          </div>
+        </mat-card>
+
+      </div>
+    </div>
+    <div *ngIf="tournament?.winner" class="round">
+      <div class="duel">
+        <h3>Winner</h3>
+        <mat-card class="player winner final">
+          <span class="rank">{{ tournament?.winner?.ranking }}.</span>
+          <mat-icon>person</mat-icon>
+          <div>
+            <div>{{tournament?.winner?.user?.name }}</div>
+            <div class="license">{{ tournament?.winner?.licensePlate }}</div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="save-btn" *ngIf="touched">
+    <div>
+      <button mat-raised-button color="primary" (click)="save()">
+        Save
+      </button>
+      <button mat-raised-button color="primary" (click)="discard()">
+        Discard
+      </button>
+    </div>
+    <div>You have unsaved changes</div>
+  </div>
+
+  <div class="confirm-btn" *ngIf="readyToAdd">
+    <button mat-raised-button color="primary" (click)="confirmWinners()">
+      Confirm winners
+    </button>
+  </div>
+
+  <div class="confirm-btn" *ngIf="readyToAdd && final">
+    <button mat-raised-button color="primary" (click)="confirmFinalWinner()">
+      Confirm tournament winner
+    </button>
+  </div>
+</ng-template>
+<ng-template #placeholder>
+  Ladder has not yet been generated.
+</ng-template>

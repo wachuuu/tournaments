@@ -1,5 +1,6 @@
 <div class="info-container" *ngIf="tournament$ | async as tournament; else loading">
   <div class="left-panel">
+    <a routerLink="'/'"> < Back to dashboard</a>
     <div class="header">
       <h1>{{ tournament.name }}</h1>
       <span class="discipline">{{ tournament.discipline }}</span>
@@ -15,6 +16,12 @@
       <button *ngIf="isOwner()" class="edit-btn" mat-raised-button (click)="removeTournament()">
         <mat-icon>delete</mat-icon>
         Remove
+      </button>
+
+      <button *ngIf="isOwner() && timePassed(tournament.applicationDeadline) && tournament.ladder?.length == 0"
+        class="edit-btn" mat-raised-button (click)="generateLadder()">
+        <mat-icon style="transform: rotate(90deg);">device_hub</mat-icon>
+        Generate Ladder
       </button>
     </div>
 
@@ -55,6 +62,7 @@
       <mat-divider></mat-divider>
       <h2>Tournament ladder</h2>
 
+      <app-ladder [tournament]="tournament" [user]="user"></app-ladder>
     </div>
 
     <div class="sponsors">

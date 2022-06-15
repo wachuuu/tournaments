@@ -1,4 +1,4 @@
-import { Ladder } from './ladder.model'
+import { Duel } from './duel.model'
 import { Player } from './player.model'
 import { Sponsor } from './sponsor.model'
 import { User } from './user.model'
@@ -16,5 +16,6 @@ export interface Tournament {
   participants: Player[],
   applicationDeadline: Date,
   sponsors: Sponsor[],
-  ladder: Ladder | null,
+  ladder: Duel[],
+  winner?: Player | null;
 };
